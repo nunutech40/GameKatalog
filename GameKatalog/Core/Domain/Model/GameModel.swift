@@ -16,5 +16,12 @@ struct GameModel: Equatable, Identifiable {
     let backgroundImage: String?
     let rating: Double?
     let ratingTop: Double?
-    let genres: [GameGenre]?
+    let genres: [GameGenreModel]?
+    let nameOriginal: String?
+    let description: String?
+}
+
+struct GameGenreModel: Decodable, Equatable, Identifiable {
+    let id: Int?
+    let name: String?
 }

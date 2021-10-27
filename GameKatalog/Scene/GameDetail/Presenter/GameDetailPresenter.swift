@@ -12,7 +12,7 @@ class GameDetailPresenter: ObservableObject {
     private let gameDetailUseCase: GameDetailUseCase
     private let id: String
     
-    @Published var gameDetail: GameDetailModel?
+    @Published var gameDetail: GameModel?
     @Published var errorMessage: String = ""
     @Published var loadingState: Bool = false
     

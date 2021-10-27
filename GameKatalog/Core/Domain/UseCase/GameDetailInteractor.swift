@@ -9,21 +9,21 @@ import Foundation
 
 protocol GameDetailUseCase {
     
-    func getDetailGame(id: String, completion: @escaping (Result<GameDetailModel, Error>) -> Void)
+    func getDetailGame(id: String, completion: @escaping (Result<GameModel, Error>) -> Void)
     
 }
 
 class GameDetailInteractor: GameDetailUseCase {
     
-    private let repository: GameDetailRepositoryProtocol
+    private let repository: GameRepositoryProtocol
     private let id: String
     
-    required init(repository: GameDetailRepositoryProtocol, id: String) {
+    required init(repository: GameRepositoryProtocol, id: String) {
         self.repository = repository
         self.id = id
     }
     
-    func getDetailGame(id: String, completion: @escaping (Result<GameDetailModel, Error>) -> Void) {
+    func getDetailGame(id: String, completion: @escaping (Result<GameModel, Error>) -> Void) {
         self.repository.getGameDetail(id: id) { gameDetail in
             completion(gameDetail)
         }
