@@ -13,9 +13,9 @@ protocol GameListUseCase {
 
 class GameListInteractor: GameListUseCase {
     
-    private let repository: GamesRepositoryProtocol
+    private let repository: GameRepositoryProtocol
     
-    required init(repository: GamesRepositoryProtocol) {
+    required init(repository: GameRepositoryProtocol) {
         self.repository = repository
     }
     

@@ -7,9 +7,10 @@
 
 import Foundation
 
-protocol GamesRepositoryProtocol {
+protocol GameRepositoryProtocol {
     
     func getGamesList(page: String, result: @escaping (Result<[GameModel], Error>) -> Void)
+    func getGameDetail(id: String, result: @escaping (Result<GameModel, Error>) -> Void)
     
 }
 
@@ -30,18 +31,18 @@ final class GameRepository: NSObject {
     }
 }
 
-extension GameRepository: GamesRepositoryProtocol {
+extension GameRepository: GameRepositoryProtocol {
     
     func getGamesList(page: String, result: @escaping (Result<[GameModel], Error>) -> Void) {
         locale.getGameList { localeResponse in
             switch localeResponse {
             case .success(let gameEntity):
-                let gameList = GameListMapper.mapGameEntitiesToDomains(input: gameEntity)
+                let gameList = GameMapper.mapGameEntitiesToDomains(input: gameEntity)
                 if gameList.isEmpty {
                     self.remote.getGameList(page: page) { remoteResponse in
                         switch remoteResponse {
                         case .success(let gameResponses):
-                            let gameEntities = GameListMapper.mapGameResponsesToEntity(input: gameResponses)
+                            let gameEntities = GameMapper.mapGameResponsesToEntity(input: gameResponses)
                             self.locale.addCategories(from: gameEntities) { addState in
                                 switch addState {
                                 case .success(let resultFromAdd):
@@ -49,7 +50,7 @@ extension GameRepository: GamesRepositoryProtocol {
                                         self.locale.getGameList { localeResponses in
                                             switch localeResponses {
                                             case .success(let gameEntity):
-                                                let resultList = GameListMapper.mapGameEntitiesToDomains(input: gameEntity)
+                                                let resultList = GameMapper.mapGameEntitiesToDomains(input: gameEntity)
                                                 result(.success(resultList))
                                             case .failure(let error):
                                                 result(.failure(error))
@@ -72,5 +73,18 @@ extension GameRepository: GamesRepositoryProtocol {
             }
         }
     }
-    
+
+    func getGameDetail(id: String, result: @escaping (Result<GameModel, Error>) -> Void) {
+        // Di sini kita bisa update tambahan data berupa deskripsi dan original name ke dalam data local
+      
+        self.remote.getDetailGame(id: id) { gameDetail in
+            switch gameDetail {
+            case .success(let gameDetailResponse):
+                let resultGameDetail = GameMapper.mapGameResponseToDomain(input: gameDetailResponse)
+                result(.success(resultGameDetail))
+            case .failure(let error):
+                result(.failure(error))
+            }
+        }
+    }
 }

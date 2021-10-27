@@ -11,7 +11,7 @@ import RealmSwift
 final class Injection: NSObject {
     
     // provide gamelist
-    private func provideRepository() -> GamesRepositoryProtocol {
+    private func provideRepository() -> GameRepositoryProtocol {
         let realm = try? Realm()
         let locale: GameListLocaleDataSource = GameListLocaleDataSource.sharedInstance(realm)
         let remote: GamesDataSource = GamesDataSource.sharedInstance
@@ -23,14 +23,8 @@ final class Injection: NSObject {
         return GameListInteractor(repository: repository)
     }
     
-    // provide gameDetail
-    private func provideGameDetailRepo() -> GameDetailRepositoryProtocol {
-        let remote: GameDetailDataSource = GameDetailDataSource.sharedInstance
-        return GameDetailRepository.sharedInstace(remote)
-    }
-    
     func provideGameDetail(id: String) -> GameDetailUseCase {
-        let repository = provideGameDetailRepo()
+        let repository = provideRepository()
         return GameDetailInteractor(repository: repository, id: id)
     }
 }

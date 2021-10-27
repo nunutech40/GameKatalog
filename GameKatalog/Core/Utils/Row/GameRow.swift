@@ -58,7 +58,7 @@ extension GameRow {
 }
 
 extension GameRow {
-    func getGenres(gameGenre: [GameGenre]) -> String {
+    func getGenres(gameGenre: [GameGenreModel]) -> String {
         let genres = gameGenre.compactMap {
             $0.name
         }
@@ -75,7 +75,9 @@ struct GameRow_Previews: PreviewProvider {
             released: "2021-09-09",
             backgroundImage: "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg",
             rating: 4.5,
-            ratingTop: 5, genres: [])
+            ratingTop: 5, genres: [],
+            nameOriginal: "Metal SLUG",
+            description: "Description Metal Slug")
         GameRow(gameModel: game).previewLayout(.fixed(width: 400, height: 85))
     }
 }

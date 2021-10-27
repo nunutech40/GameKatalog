@@ -5,7 +5,7 @@ use_frameworks!
 target 'GameKatalog' do
   pod 'SDWebImageSwiftUI'
   pod 'Alamofire'
-#  pod 'RealmSwift'
+  pod 'RealmSwift'
   # Pods for GameKatalog
 
 end

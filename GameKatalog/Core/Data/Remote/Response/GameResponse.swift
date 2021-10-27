@@ -20,7 +20,9 @@ struct GameResponse: Decodable {
     let backgroundImage: String?
     let rating: Double?
     let ratingTop: Double?
-    let genres: [GameGenre]?
+    let genres: [GameGenreResponse]?
+    let nameOriginal: String?
+    let description: String?
     
     private enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -31,10 +33,12 @@ struct GameResponse: Decodable {
         case rating = "rating"
         case ratingTop = "rating_top"
         case genres = "genres"
+        case nameOriginal = "name_original"
+        case description = "description_raw"
     }
 }
 
-struct GameGenre: Decodable, Equatable, Identifiable {
+struct GameGenreResponse: Decodable, Equatable, Identifiable {
     let id: Int?
     let name: String?
 }

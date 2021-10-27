@@ -36,7 +36,7 @@ struct GameListView: View {
                 }
                 .background(Color.gray.opacity(0.3))
             }
-        }.onAppear() {
+        }.onAppear {
             if self.presenter.gameList.count == 0 {
                 self.presenter.getGameList(page: "1")
             }

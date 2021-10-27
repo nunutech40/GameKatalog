@@ -31,7 +31,7 @@ struct GameDetailView: View {
                 }
                 .background(Color.gray.opacity(0.3))
             }
-        }.onAppear() {
+        }.onAppear {
             if self.presenter.gameDetail == nil {
                 self.presenter.getGameDetail()
             }
